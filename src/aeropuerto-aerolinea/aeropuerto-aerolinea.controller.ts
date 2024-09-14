@@ -7,19 +7,22 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AeropuertoAerolineaService } from './aeropuerto-aerolinea.service';
 import { plainToInstance } from 'class-transformer';
 import { AeropuertoEntity } from 'src/aeropuerto/aeropuerto.entity';
 import { AeropuertoDto } from 'src/aeropuerto/aeropuerto.dto/aeropuerto.dto';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 
 @Controller('aeropuerto-aerolinea')
+@UseInterceptors(BusinessErrorsInterceptor)
 export class AeropuertoAerolineaController {
   constructor(
     private readonly aeropuertoAerolineaService: AeropuertoAerolineaService,
   ) {}
 
-  @Post(':aerolineaId/airports/:aeropuertoId')
+  @Post(':aerolineaId/aeropuerto/:aeropuertoId')
   async addAirportToAirline(
     @Param('aerolineaId') aerolineaId: string,
     @Param('aeropuertoId') aeropuertoId: string,
@@ -30,14 +33,14 @@ export class AeropuertoAerolineaController {
     );
   }
 
-  @Get(':aerolineaId/airports')
+  @Get(':aerolineaId/aeropuerto')
   async findAirportsFromAirline(@Param('aerolineaId') aerolineaId: string) {
     return await this.aeropuertoAerolineaService.findAirportsFromAirline(
       aerolineaId,
     );
   }
 
-  @Get(':aerolineaId/airports/:aeropuertoId')
+  @Get(':aerolineaId/aeropuerto/:aeropuertoId')
   async findAirportFromAirline(
     @Param('aerolineaId') aerolineaId: string,
     @Param('aeropuertoId') aeropuertoId: string,
@@ -48,7 +51,7 @@ export class AeropuertoAerolineaController {
     );
   }
 
-  @Put(':aerolineaId/airports')
+  @Put(':aerolineaId/aeropuerto')
   async updateAirportsFromAirline(
     @Param('aerolineaId') aerolineaId: string,
     @Body() aeropuertosDto: AeropuertoDto[],
@@ -60,7 +63,7 @@ export class AeropuertoAerolineaController {
     );
   }
 
-  @Delete(':aerolineaId/airports/:aeropuertoId')
+  @Delete(':aerolineaId/aeropuerto/:aeropuertoId')
   @HttpCode(204)
   async deleteAirportFromAirline(
     @Param('aerolineaId') aerolineaId: string,
