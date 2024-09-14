@@ -22,7 +22,7 @@ export class AeropuertoService {
     const aeropuerto: AeropuertoEntity =
       await this.aeropuertoRepository.findOne({
         where: { id },
-        relations: ['aerolinea'],
+        relations: ['aerolineas'],
       });
     if (!aeropuerto)
       throw new BusinessLogicException(

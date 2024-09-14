@@ -25,6 +25,11 @@ export class AerolineaController {
     return await this.aerolineaService.findAll();
   }
 
+  @Get(':aerolineaId')
+  async findOne(@Param('aerolineaId') aerolineaId: string) {
+    return await this.aerolineaService.findOne(aerolineaId);
+  }
+
   @Post()
   async create(@Body() aerolineaDto: AerolineaDto) {
     const aerolinea: AerolineaEntity = plainToInstance(
@@ -46,7 +51,7 @@ export class AerolineaController {
     return await this.aerolineaService.update(aerolineaId, aerolinea);
   }
 
-  @Delete('aerolineaId')
+  @Delete(':aerolineaId')
   @HttpCode(204)
   async delete(@Param('aerolineaId') aerolineaId: string) {
     return await this.aerolineaService.delete(aerolineaId);

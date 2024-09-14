@@ -25,6 +25,11 @@ export class AeropuertoController {
     return await this.aeropuertoService.findAll();
   }
 
+  @Get(':aeropuertoId')
+  async findOne(@Param('aeropuertoId') aeropuertoId: string) {
+    return await this.aeropuertoService.findOne(aeropuertoId);
+  }
+
   @Post()
   async create(@Body() aeropuertoDto: AeropuertoDto) {
     const aeropuerto: AeropuertoEntity = plainToInstance(
@@ -46,7 +51,7 @@ export class AeropuertoController {
     return await this.aeropuertoService.update(aeropuertoId, aeropuerto);
   }
 
-  @Delete('aeropuertoId')
+  @Delete(':aeropuertoId')
   @HttpCode(204)
   async delete(@Param('aeropuertoId') aeropuertoId: string) {
     return await this.aeropuertoService.delete(aeropuertoId);

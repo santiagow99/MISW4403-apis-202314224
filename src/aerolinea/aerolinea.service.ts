@@ -21,7 +21,7 @@ export class AerolineaService {
   async findOne(id: string): Promise<AerolineaEntity> {
     const aerolinea: AerolineaEntity = await this.aerolineaRepository.findOne({
       where: { id },
-      relations: ['aeropuerto'],
+      relations: ['aeropuertos'],
     });
     if (!aerolinea)
       throw new BusinessLogicException(
